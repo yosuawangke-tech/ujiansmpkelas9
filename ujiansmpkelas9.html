@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🎓 Ujian Matematika SMP | Kelas 9</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   CSS VARIABLES & RESET
+============================================================ */
+:root {
+  --blue:       #4FACFE;
+  --blue-dark:  #2980d9;
+  --purple:     #A18CD1;
+  --purple-dark:#7c5cbf;
+  --yellow:     #FFD93D;
+  --yellow-dark:#e6c200;
+  --green:      #2ecc71;
+  --red:        #e74c3c;
+  --white:      #ffffff;
+  --gray-50:    #f8faff;
+  --gray-100:   #eef2ff;
+  --gray-200:   #dde3f7;
+  --gray-500:   #8892b0;
+  --gray-700:   #4a5568;
+  --shadow-sm:  0 2px 8px rgba(79,172,254,.15);
+  --shadow-md:  0 8px 30px rgba(79,172,254,.25);
+  --shadow-lg:  0 20px 60px rgba(79,172,254,.35);
+  --radius-sm:  10px;
+  --radius-md:  16px;
+  --radius-lg:  24px;
+  --radius-xl:  32px;
+  --transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #4FACFE 0%, #7B6FE8 50%, #A18CD1 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Floating bubbles background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,217,61,.12) 0%, transparent 35%),
+    radial-gradient(circle at 50% 90%, rgba(161,140,209,.15) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   SCREENS / PAGES
+============================================================ */
+.screen {
+  display: none;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+.screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+/* ============================================================
+   CARD BASE
+============================================================ */
+.card {
+  background: rgba(255,255,255,.97);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+
+/* ============================================================
+   SCREEN 1 — LOGIN
+============================================================ */
+#screen-login {
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 0;
+  animation: slideUp .6s ease;
+}
+
+.login-header {
+  background: linear-gradient(135deg, #4FACFE, #A18CD1);
+  padding: 40px 40px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.login-header::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: 50%; transform: translateX(-50%);
+  width: 120%; height: 40px;
+  background: rgba(255,255,255,.97);
+  border-radius: 50% 50% 0 0;
+}
+
+.login-emoji { font-size: 64px; display: block; margin-bottom: 12px; animation: bounce 2s infinite; }
+.login-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0,0,0,.2);
+  line-height: 1.2;
+}
+.login-subtitle {
+  color: rgba(255,255,255,.85);
+  font-size: 14px;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.login-body { padding: 40px 40px 36px; }
+
+.info-badges {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  margin-bottom: 28px;
+}
+.badge {
+  background: var(--gray-100);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-700);
+  display: flex; align-items: center; gap: 5px;
+}
+.badge.blue  { background: #e8f4ff; color: var(--blue-dark); }
+.badge.purple{ background: #f0ecff; color: var(--purple-dark); }
+.badge.yellow{ background: #fffadf; color: #b8920e; }
+
+.form-group { margin-bottom: 20px; }
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--gray-700);
+  margin-bottom: 8px;
+  letter-spacing: .3px;
+}
+.form-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2.5px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  color: var(--gray-700);
+  outline: none;
+  transition: var(--transition);
+  background: var(--gray-50);
+}
+.form-input:focus {
+  border-color: var(--blue);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(79,172,254,.15);
+}
+.form-input::placeholder { color: #b8c4d8; font-weight: 600; }
+
+.btn-start {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #4FACFE, #A18CD1);
+  border: none;
+  border-radius: var(--radius-md);
+  color: white;
+  font-size: 16px;
+  font-weight: 900;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: .5px;
+  box-shadow: 0 6px 20px rgba(79,172,254,.4);
+}
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(79,172,254,.5);
+}
+.btn-start:active { transform: translateY(0); }
+
+.login-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   SCREEN 2 — UJIAN
+============================================================ */
+#screen-exam {
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
+  min-height: 100vh;
+}
+#screen-exam.active {
+  display: flex;
+}
+
+/* TOP BAR */
+.exam-topbar {
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+}
+
+.student-info {
+  display: flex; align-items: center; gap: 10px;
+}
+.student-avatar {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--yellow), #ffb300);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.15);
+}
+.student-name-label { font-size: 12px; color: rgba(255,255,255,.7); font-weight: 600; }
+.student-name-text  { font-size: 15px; color: white; font-weight: 800; }
+
+.timer-box {
+  background: white;
+  border-radius: 50px;
+  padding: 8px 20px;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: var(--shadow-sm);
+}
+.timer-icon { font-size: 18px; }
+.timer-text {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--gray-700);
+  font-family: 'Poppins', sans-serif;
+  min-width: 70px;
+  text-align: center;
+}
+.timer-text.warning { color: #e67e22; animation: pulse 1s infinite; }
+.timer-text.danger  { color: var(--red); animation: pulse .5s infinite; }
+
+.progress-info {
+  display: flex; align-items: center; gap: 10px;
+}
+.progress-text {
+  font-size: 13px; font-weight: 800; color: white;
+}
+.progress-bar-wrap {
+  width: 100px; height: 8px;
+  background: rgba(255,255,255,.3);
+  border-radius: 10px; overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--yellow);
+  border-radius: 10px;
+  transition: width .4s ease;
+}
+
+/* MAIN EXAM AREA */
+.exam-main {
+  flex: 1;
+  display: flex;
+  gap: 0;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+/* QUESTION CARD */
+.question-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.question-card {
+  padding: 28px 32px;
+  animation: fadeInScale .35s ease;
+}
+
+.question-meta {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.question-number {
+  background: linear-gradient(135deg, #4FACFE, #A18CD1);
+  color: white;
+  font-size: 13px; font-weight: 900;
+  padding: 5px 14px;
+  border-radius: 20px;
+}
+.question-category {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  font-size: 11px; font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: .3px;
+}
+
+.question-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: #2d3748;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* OPTIONS */
+.options-list { display: flex; flex-direction: column; gap: 10px; }
+
+.option-btn {
+  width: 100%;
+  text-align: left;
+  border: 2.5px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-700);
+  background: white;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.option-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(79,172,254,.05), rgba(161,140,209,.05));
+  opacity: 0;
+  transition: opacity .3s;
+}
+.option-btn:hover { border-color: var(--blue); transform: translateX(4px); box-shadow: var(--shadow-sm); }
+.option-btn:hover::before { opacity: 1; }
+
+.option-btn.selected {
+  border-color: var(--blue);
+  background: linear-gradient(135deg, rgba(79,172,254,.08), rgba(161,140,209,.08));
+  color: var(--blue-dark);
+  box-shadow: 0 4px 15px rgba(79,172,254,.2);
+}
+
+.option-label {
+  width: 32px; height: 32px; min-width: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 900;
+  background: var(--gray-100);
+  color: var(--gray-500);
+  transition: var(--transition);
+}
+.option-btn.selected .option-label {
+  background: linear-gradient(135deg, #4FACFE, #A18CD1);
+  color: white;
+}
+.option-btn:hover .option-label {
+  background: var(--blue);
+  color: white;
+}
+
+/* NAV BUTTONS */
+.nav-buttons {
+  display: flex; gap: 10px; justify-content: space-between; align-items: center;
+  padding: 16px 32px;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+
+.btn-nav {
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: var(--transition);
+}
+.btn-prev {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+.btn-prev:hover { background: var(--gray-200); }
+.btn-next {
+  background: linear-gradient(135deg, #4FACFE, #A18CD1);
+  color: white;
+  box-shadow: 0 4px 15px rgba(79,172,254,.35);
+}
+.btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79,172,254,.45); }
+.btn-submit {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+  box-shadow: 0 4px 15px rgba(46,204,113,.35);
+}
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,204,113,.45); }
+
+.btn-nav:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+.answered-count {
+  font-size: 13px; font-weight: 700; color: var(--gray-500);
+}
+
+/* QUESTION GRID (side panel) */
+.question-grid-panel {
+  width: 280px;
+  margin-left: 20px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.grid-card {
+  padding: 20px;
+}
+
+.grid-title {
+  font-size: 13px; font-weight: 800; color: var(--gray-700);
+  margin-bottom: 14px; letter-spacing: .3px;
+}
+
+.grid-legend {
+  display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 700; color: var(--gray-500);
+}
+.legend-dot {
+  width: 10px; height: 10px; border-radius: 3px;
+}
+.legend-dot.answered { background: linear-gradient(135deg, #4FACFE, #A18CD1); }
+.legend-dot.unanswered { background: var(--gray-200); }
+.legend-dot.current { background: var(--yellow); }
+
+.question-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+}
+
+.grid-btn {
+  aspect-ratio: 1;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  background: white;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex; align-items: center; justify-content: center;
+}
+.grid-btn:hover { border-color: var(--blue); color: var(--blue); }
+.grid-btn.answered {
+  background: linear-gradient(135deg, #4FACFE, #A18CD1);
+  border-color: transparent;
+  color: white;
+}
+.grid-btn.current {
+  background: var(--yellow);
+  border-color: var(--yellow-dark);
+  color: #333;
+  box-shadow: 0 2px 8px rgba(255,217,61,.4);
+}
+
+/* ============================================================
+   SCREEN 3 — RESULT
+============================================================ */
+#screen-result {
+  padding: 20px;
+}
+
+.result-card {
+  width: 100%; max-width: 620px;
+  padding: 0;
+  animation: slideUp .6s ease;
+}
+
+.result-header {
+  background: linear-gradient(135deg, #4FACFE, #A18CD1);
+  padding: 36px 36px 50px;
+  text-align: center;
+  position: relative;
+}
+.result-header::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: 50%; transform: translateX(-50%);
+  width: 120%; height: 42px;
+  background: rgba(255,255,255,.97);
+  border-radius: 50%;
+}
+
+.result-emoji { font-size: 64px; margin-bottom: 10px; display: block; animation: bounce 1.5s infinite; }
+.result-title { font-size: 22px; font-weight: 900; color: white; }
+
+.result-body { padding: 40px 36px 32px; }
+
+.score-circle {
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  background: conic-gradient(#4FACFE 0%, #A18CD1 var(--pct), #eef2ff var(--pct));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  box-shadow: 0 8px 30px rgba(79,172,254,.3);
+  position: relative;
+}
+.score-circle-inner {
+  width: 118px; height: 118px;
+  border-radius: 50%;
+  background: white;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.score-big  { font-size: 32px; font-weight: 900; color: var(--gray-700); line-height: 1; }
+.score-denom{ font-size: 14px; font-weight: 700; color: var(--gray-500); }
+
+.result-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-bottom: 24px;
+}
+.stat-box {
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  padding: 16px 12px;
+  text-align: center;
+  border: 2px solid var(--gray-200);
+}
+.stat-num  { font-size: 24px; font-weight: 900; }
+.stat-label{ font-size: 11px; font-weight: 700; color: var(--gray-500); margin-top: 3px; }
+.stat-box.green { border-color: var(--green); }
+.stat-box.green .stat-num { color: var(--green); }
+.stat-box.red   { border-color: var(--red); }
+.stat-box.red .stat-num   { color: var(--red); }
+.stat-box.blue  { border-color: var(--blue); }
+.stat-box.blue .stat-num  { color: var(--blue); }
+
+.feedback-box {
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 15px;
+  font-weight: 800;
+}
+.feedback-box.excellent { background: #e8ffe8; color: #27ae60; border: 2px solid #2ecc71; }
+.feedback-box.good      { background: #e8f4ff; color: #2980d9; border: 2px solid #4FACFE; }
+.feedback-box.ok        { background: #fffadf; color: #b8920e; border: 2px solid #FFD93D; }
+.feedback-box.poor      { background: #ffe8e8; color: #c0392b; border: 2px solid #e74c3c; }
+
+.result-actions { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+.btn-review, .btn-retry {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-review {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+.btn-review:hover { background: var(--gray-200); }
+.btn-retry {
+  background: linear-gradient(135deg, #4FACFE, #A18CD1);
+  color: white;
+  box-shadow: 0 4px 15px rgba(79,172,254,.35);
+}
+.btn-retry:hover { transform: translateY(-2px); }
+
+/* ============================================================
+   SCREEN 4 — REVIEW
+============================================================ */
+#screen-review {
+  align-items: stretch;
+  flex-direction: column;
+  padding: 0;
+}
+#screen-review.active { display: flex; }
+
+.review-topbar {
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(20px);
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.review-title { font-size: 18px; font-weight: 900; color: white; }
+.btn-back-result {
+  padding: 8px 18px;
+  background: white;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px; font-weight: 800;
+  cursor: pointer; color: var(--gray-700);
+  transition: var(--transition);
+}
+.btn-back-result:hover { box-shadow: var(--shadow-sm); }
+
+.review-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.review-list {
+  max-width: 720px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.review-item {
+  background: rgba(255,255,255,.95);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  box-shadow: var(--shadow-sm);
+  border-left: 5px solid var(--gray-200);
+}
+.review-item.correct { border-left-color: var(--green); }
+.review-item.wrong   { border-left-color: var(--red); }
+
+.review-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+}
+.review-num {
+  font-size: 12px; font-weight: 900; color: white;
+  padding: 3px 10px; border-radius: 20px;
+  background: linear-gradient(135deg, #4FACFE, #A18CD1);
+}
+.review-cat { font-size: 11px; font-weight: 700; color: var(--gray-500); }
+.review-status {
+  margin-left: auto; font-size: 12px; font-weight: 800;
+  padding: 3px 10px; border-radius: 20px;
+}
+.review-status.correct { background: #e8ffe8; color: #27ae60; }
+.review-status.wrong   { background: #ffe8e8; color: #c0392b; }
+
+.review-q { font-size: 14px; font-weight: 700; color: var(--gray-700); margin-bottom: 12px; }
+
+.review-answers { display: flex; flex-direction: column; gap: 6px; }
+.review-opt {
+  font-size: 13px; font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.review-opt.correct-ans { background: #e8ffe8; color: #27ae60; }
+.review-opt.wrong-ans   { background: #ffe8e8; color: #c0392b; }
+.review-opt.normal      { background: var(--gray-100); color: var(--gray-500); }
+
+/* ============================================================
+   ANIMATIONS
+============================================================ */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes bounce {
+  0%,100%{ transform: translateY(0); }
+  50%    { transform: translateY(-8px); }
+}
+@keyframes pulse {
+  0%,100%{ opacity: 1; }
+  50%    { opacity: .6; }
+}
+
+/* ============================================================
+   MODAL / OVERLAY
+============================================================ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,.5);
+  backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.show { display: flex; }
+.modal-box {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  max-width: 380px; width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp .3s ease;
+}
+.modal-emoji { font-size: 52px; margin-bottom: 12px; }
+.modal-title { font-size: 20px; font-weight: 900; color: var(--gray-700); margin-bottom: 8px; }
+.modal-desc  { font-size: 14px; font-weight: 600; color: var(--gray-500); margin-bottom: 24px; }
+.modal-actions { display: flex; gap: 10px; }
+.btn-modal-cancel, .btn-modal-confirm {
+  flex: 1; padding: 13px;
+  border: none; border-radius: var(--radius-md);
+  font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
+  cursor: pointer; transition: var(--transition);
+}
+.btn-modal-cancel { background: var(--gray-100); color: var(--gray-700); }
+.btn-modal-cancel:hover { background: var(--gray-200); }
+.btn-modal-confirm { background: linear-gradient(135deg, #2ecc71, #27ae60); color: white; }
+.btn-modal-confirm:hover { transform: translateY(-2px); }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 768px) {
+  .question-grid-panel { display: none; }
+  .exam-main { padding: 12px; }
+  .question-card { padding: 20px; }
+  .nav-buttons { padding: 14px 20px; }
+  .question-text { font-size: 15px; }
+  .option-btn { font-size: 14px; padding: 12px 14px; }
+  .result-stats { grid-template-columns: repeat(3,1fr); }
+  .login-header { padding: 32px 28px 26px; }
+  .login-body { padding: 32px 28px 28px; }
+  .result-body { padding: 32px 24px 24px; }
+}
+
+@media (max-width: 480px) {
+  .exam-topbar { padding: 10px 14px; }
+  .timer-text { font-size: 17px; }
+  .progress-bar-wrap { width: 70px; }
+  .btn-nav { padding: 10px 16px; font-size: 13px; }
+  .result-stats { gap: 8px; }
+  .stat-box { padding: 12px 8px; }
+  .stat-num { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SCREEN 1: LOGIN
+============================================================ -->
+<div id="screen-login" class="screen active">
+  <div class="login-card card">
+    <div class="login-header">
+      <span class="login-emoji">📐</span>
+      <div class="login-title">Ujian Matematika SMP</div>
+      <div class="login-subtitle">Kelas 7 · 8 · 9 — Tahun Ajaran 2024/2025</div>
+    </div>
+    <div class="login-body">
+      <div class="info-badges">
+        <div class="badge blue">📝 60 Soal</div>
+        <div class="badge purple">⏱️ 90 Menit</div>
+        <div class="badge yellow">🎯 Pilihan Ganda</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="nameInput">👤 Nama Lengkap Siswa</label>
+        <input
+          type="text"
+          id="nameInput"
+          class="form-input"
+          placeholder="Tulis nama kamu di sini..."
+          maxlength="50"
+          autocomplete="off"
+        />
+      </div>
+      <button class="btn-start" onclick="startExam()">
+        🚀 Mulai Ujian Sekarang
+      </button>
+      <p class="login-footer">✅ Pastikan nama sudah benar sebelum memulai ujian</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN 2: EXAM
+============================================================ -->
+<div id="screen-exam" class="screen">
+  <!-- Top bar -->
+  <div class="exam-topbar">
+    <div class="student-info">
+      <div class="student-avatar">🎓</div>
+      <div>
+        <div class="student-name-label">Peserta Ujian</div>
+        <div class="student-name-text" id="topbar-name">—</div>
+      </div>
+    </div>
+    <div class="timer-box">
+      <span class="timer-icon">⏰</span>
+      <div class="timer-text" id="timer-display">90:00</div>
+    </div>
+    <div class="progress-info">
+      <div>
+        <div class="student-name-label">Progress</div>
+        <div class="progress-text" id="progress-text">0 / 60</div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="exam-main">
+    <!-- Question area -->
+    <div class="question-area">
+      <!-- Question card -->
+      <div class="question-card card" id="question-card">
+        <div class="question-meta">
+          <span class="question-number" id="q-number">Soal 1 dari 60</span>
+          <span class="question-category" id="q-category">—</span>
+        </div>
+        <div class="question-text" id="q-text">—</div>
+        <div class="options-list" id="q-options"></div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="nav-buttons">
+        <button class="btn-nav btn-prev" id="btn-prev" onclick="navigate(-1)" disabled>
+          ◀ Sebelumnya
+        </button>
+        <div class="answered-count" id="answered-count">0 soal dijawab</div>
+        <button class="btn-nav btn-next" id="btn-next" onclick="navigate(1)">
+          Selanjutnya ▶
+        </button>
+        <button class="btn-nav btn-submit" id="btn-submit" onclick="openSubmitModal()" style="display:none">
+          ✅ Selesai & Kirim
+        </button>
+      </div>
+    </div>
+
+    <!-- Side panel: Question grid -->
+    <div class="question-grid-panel">
+      <div class="grid-card card">
+        <div class="grid-title">📋 Navigasi Soal</div>
+        <div class="grid-legend">
+          <div class="legend-item"><div class="legend-dot answered"></div>Dijawab</div>
+          <div class="legend-item"><div class="legend-dot unanswered"></div>Belum</div>
+          <div class="legend-item"><div class="legend-dot current"></div>Saat ini</div>
+        </div>
+        <div class="question-grid" id="question-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN 3: RESULT
+============================================================ -->
+<div id="screen-result" class="screen">
+  <div class="result-card card">
+    <div class="result-header">
+      <span class="result-emoji" id="result-emoji">🎉</span>
+      <div class="result-title" id="result-header-text">Ujian Selesai!</div>
+    </div>
+    <div class="result-body">
+      <!-- Score circle -->
+      <div class="score-circle" id="score-circle" style="--pct:0%">
+        <div class="score-circle-inner">
+          <div class="score-big" id="score-big">0</div>
+          <div class="score-denom" id="score-denom">dari 60</div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="result-stats">
+        <div class="stat-box green">
+          <div class="stat-num" id="stat-correct">0</div>
+          <div class="stat-label">✅ Benar</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num" id="stat-wrong">0</div>
+          <div class="stat-label">❌ Salah</div>
+        </div>
+        <div class="stat-box blue">
+          <div class="stat-num" id="stat-pct">0%</div>
+          <div class="stat-label">🎯 Nilai</div>
+        </div>
+      </div>
+
+      <!-- Student name on result -->
+      <div style="text-align:center;margin-bottom:16px;font-size:14px;color:var(--gray-500);font-weight:700;">
+        Hasil ujian: <span id="result-name" style="color:var(--blue-dark)">—</span>
+      </div>
+
+      <!-- Feedback -->
+      <div class="feedback-box" id="feedback-box">—</div>
+
+      <!-- Actions -->
+      <div class="result-actions">
+        <button class="btn-review" onclick="showReview()">🔍 Review Jawaban</button>
+        <button class="btn-retry" onclick="retryExam()">🔄 Ulangi Ujian</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN 4: REVIEW
+============================================================ -->
+<div id="screen-review" class="screen">
+  <div class="review-topbar">
+    <div class="review-title">🔍 Review Jawaban</div>
+    <button class="btn-back-result" onclick="showScreen('screen-result')">← Kembali ke Hasil</button>
+  </div>
+  <div class="review-body">
+    <div class="review-list" id="review-list"></div>
+  </div>
+</div>
+
+<!-- Submit Modal -->
+<div class="modal-overlay" id="submit-modal">
+  <div class="modal-box">
+    <div class="modal-emoji">📤</div>
+    <div class="modal-title">Kirim Ujian?</div>
+    <div class="modal-desc" id="modal-desc">Pastikan semua soal sudah dijawab sebelum mengirim.</div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeSubmitModal()">Batal</button>
+      <button class="btn-modal-confirm" onclick="submitExam()">Ya, Kirim!</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+/* ================================================================
+   BANK SOAL — 60 Soal Matematika SMP
+   Format: { question, options (index 0 = jawaban benar), category, grade }
+================================================================ */
+const questionBank = [
+
+  /* ── KELAS 7 — BILANGAN (soal 1–5) ── */
+  {
+    question: "Hasil dari (−12) × (−5) + 30 ÷ (−6) = ...",
+    options: ["55", "60", "65", "45"],
+    category: "Bilangan · Kelas 7", grade: 7
+  },
+  {
+    question: "Nilai dari 2³ × 3² − 4² = ...",
+    options: ["56", "72", "40", "48"],
+    category: "Bilangan · Kelas 7", grade: 7
+  },
+  {
+    question: "FPB dari 84 dan 126 adalah ...",
+    options: ["42", "21", "14", "7"],
+    category: "Bilangan · Kelas 7", grade: 7
+  },
+  {
+    question: "KPK dari 12, 18, dan 24 adalah ...",
+    options: ["72", "36", "48", "60"],
+    category: "Bilangan · Kelas 7", grade: 7
+  },
+  {
+    question: "Suhu di puncak gunung −8°C. Suhu di kaki gunung 22°C. Selisih suhu keduanya adalah ...",
+    options: ["30°C", "14°C", "28°C", "16°C"],
+    category: "Bilangan · Kelas 7", grade: 7
+  },
+
+  /* ── KELAS 7 — BENTUK ALJABAR (soal 6–10) ── */
+  {
+    question: "Hasil perkalian (2x + 3)(x − 4) = ...",
+    options: ["2x² − 5x − 12", "2x² − 8x + 12", "2x² + 5x − 12", "2x² − 5x + 12"],
+    category: "Bentuk Aljabar · Kelas 7", grade: 7
+  },
+  {
+    question: "Bentuk sederhana dari (4a²b³) × (2ab²) adalah ...",
+    options: ["8a³b⁵", "6a³b⁵", "8a²b⁵", "8a³b⁶"],
+    category: "Bentuk Aljabar · Kelas 7", grade: 7
+  },
+  {
+    question: "Nilai dari 3x² − 2x + 5 untuk x = −2 adalah ...",
+    options: ["21", "17", "13", "25"],
+    category: "Bentuk Aljabar · Kelas 7", grade: 7
+  },
+  {
+    question: "Faktorkan x² − 9 = ...",
+    options: ["(x + 3)(x − 3)", "(x − 3)²", "(x + 3)²", "(x + 9)(x − 1)"],
+    category: "Bentuk Aljabar · Kelas 7", grade: 7
+  },
+  {
+    question: "Sederhanakan (3x − 2)² = ...",
+    options: ["9x² − 12x + 4", "9x² + 12x + 4", "9x² − 12x − 4", "6x² − 12x + 4"],
+    category: "Bentuk Aljabar · Kelas 7", grade: 7
+  },
+
+  /* ── KELAS 7 — PERBANDINGAN (soal 11–15) ── */
+  {
+    question: "Jika 6 pekerja dapat menyelesaikan suatu pekerjaan dalam 12 hari, berapa hari yang dibutuhkan 9 pekerja untuk pekerjaan yang sama?",
+    options: ["8 hari", "18 hari", "6 hari", "10 hari"],
+    category: "Perbandingan · Kelas 7", grade: 7
+  },
+  {
+    question: "Perbandingan uang Andi dan Budi adalah 3 : 5. Jika jumlah uang mereka Rp 640.000, maka uang Andi adalah ...",
+    options: ["Rp 240.000", "Rp 320.000", "Rp 200.000", "Rp 280.000"],
+    category: "Perbandingan · Kelas 7", grade: 7
+  },
+  {
+    question: "Peta berskala 1 : 500.000. Jarak dua kota pada peta adalah 6 cm. Jarak sebenarnya adalah ...",
+    options: ["30 km", "3 km", "300 km", "0,3 km"],
+    category: "Perbandingan · Kelas 7", grade: 7
+  },
+  {
+    question: "Sebuah mobil menempuh jarak 240 km dalam 4 jam. Kecepatan rata-rata mobil tersebut adalah ...",
+    options: ["60 km/jam", "80 km/jam", "50 km/jam", "70 km/jam"],
+    category: "Perbandingan · Kelas 7", grade: 7
+  },
+  {
+    question: "Jika 5 buku seharga Rp 37.500, maka harga 8 buku adalah ...",
+    options: ["Rp 60.000", "Rp 50.000", "Rp 45.000", "Rp 75.000"],
+    category: "Perbandingan · Kelas 7", grade: 7
+  },
+
+  /* ── KELAS 8 — SPLDV (soal 16–20) ── */
+  {
+    question: "Jika 2x + 3y = 12 dan x − y = 1, maka nilai x adalah ...",
+    options: ["3", "4", "2", "5"],
+    category: "SPLDV · Kelas 8", grade: 8
+  },
+  {
+    question: "Harga 3 pensil dan 2 buku tulis adalah Rp 7.000. Harga 2 pensil dan 3 buku tulis adalah Rp 8.000. Harga sebuah buku tulis adalah ...",
+    options: ["Rp 2.000", "Rp 1.500", "Rp 2.500", "Rp 1.000"],
+    category: "SPLDV · Kelas 8", grade: 8
+  },
+  {
+    question: "Diketahui sistem persamaan 3x + 2y = 16 dan x − y = 2. Nilai x + y adalah ...",
+    options: ["6", "4", "8", "2"],
+    category: "SPLDV · Kelas 8", grade: 8
+  },
+  {
+    question: "Diketahui 2x + y = 7 dan x + 2y = 8. Nilai dari 3x + 3y adalah ...",
+    options: ["15", "12", "18", "9"],
+    category: "SPLDV · Kelas 8", grade: 8
+  },
+  {
+    question: "Umur ayah 4 kali umur anaknya. Selisih umur mereka 27 tahun. Umur ayah saat ini adalah ...",
+    options: ["36 tahun", "27 tahun", "45 tahun", "54 tahun"],
+    category: "SPLDV · Kelas 8", grade: 8
+  },
+
+  /* ── KELAS 8 — TEOREMA PYTHAGORAS (soal 21–25) ── */
+  {
+    question: "Sebuah tangga sepanjang 13 m bersandar pada dinding. Kaki tangga berjarak 5 m dari dinding. Tinggi dinding yang dicapai tangga adalah ...",
+    options: ["12 m", "8 m", "10 m", "11 m"],
+    category: "Teorema Pythagoras · Kelas 8", grade: 8
+  },
+  {
+    question: "Panjang diagonal persegi dengan sisi 8 cm adalah ...",
+    options: ["8√2 cm", "4√2 cm", "16 cm", "8 cm"],
+    category: "Teorema Pythagoras · Kelas 8", grade: 8
+  },
+  {
+    question: "Sebuah segitiga memiliki sisi 9 cm, 12 cm, dan 15 cm. Jenis segitiga tersebut adalah ...",
+    options: ["Segitiga siku-siku", "Segitiga lancip", "Segitiga tumpul", "Segitiga sama sisi"],
+    category: "Teorema Pythagoras · Kelas 8", grade: 8
+  },
+  {
+    question: "Keliling segitiga siku-siku dengan sisi siku-siku 6 cm dan 8 cm adalah ...",
+    options: ["24 cm", "20 cm", "28 cm", "30 cm"],
+    category: "Teorema Pythagoras · Kelas 8", grade: 8
+  },
+  {
+    question: "Titik P(0, 0) dan Q(3, 4) berada pada bidang koordinat. Jarak PQ adalah ...",
+    options: ["5", "7", "4", "6"],
+    category: "Teorema Pythagoras · Kelas 8", grade: 8
+  },
+
+  /* ── KELAS 8 — FUNGSI LINEAR (soal 26–30) ── */
+  {
+    question: "Gradien garis dengan persamaan 3x − 4y + 8 = 0 adalah ...",
+    options: ["¾", "−¾", "4/3", "−4/3"],
+    category: "Fungsi Linear · Kelas 8", grade: 8
+  },
+  {
+    question: "Persamaan garis yang melalui titik (2, 3) dengan gradien 2 adalah ...",
+    options: ["y = 2x − 1", "y = 2x + 1", "y = 2x − 3", "y = 2x + 3"],
+    category: "Fungsi Linear · Kelas 8", grade: 8
+  },
+  {
+    question: "Titik potong garis y = 3x − 6 dengan sumbu x adalah ...",
+    options: ["(2, 0)", "(0, −6)", "(3, 0)", "(−2, 0)"],
+    category: "Fungsi Linear · Kelas 8", grade: 8
+  },
+  {
+    question: "Syarat dua garis saling tegak lurus adalah hasil kali gradiennya sama dengan ...",
+    options: ["−1", "0", "1", "Tak terhingga"],
+    category: "Fungsi Linear · Kelas 8", grade: 8
+  },
+  {
+    question: "Persamaan garis yang melalui titik (1, 4) dan (3, 8) adalah ...",
+    options: ["y = 2x + 2", "y = 2x + 4", "y = 4x", "y = 2x − 2"],
+    category: "Fungsi Linear · Kelas 8", grade: 8
+  },
+
+  /* ── KELAS 8 — LINGKARAN (soal 31–35) ── */
+  {
+    question: "Luas lingkaran dengan jari-jari 7 cm adalah ... (π = 22/7)",
+    options: ["154 cm²", "44 cm²", "308 cm²", "77 cm²"],
+    category: "Lingkaran · Kelas 8", grade: 8
+  },
+  {
+    question: "Keliling lingkaran dengan diameter 20 cm adalah ... (π = 3,14)",
+    options: ["62,8 cm", "31,4 cm", "125,6 cm", "314 cm"],
+    category: "Lingkaran · Kelas 8", grade: 8
+  },
+  {
+    question: "Sudut pusat sebuah juring adalah 90°. Jika jari-jari lingkaran 14 cm, luas juring tersebut adalah ... (π = 22/7)",
+    options: ["154 cm²", "308 cm²", "616 cm²", "44 cm²"],
+    category: "Lingkaran · Kelas 8", grade: 8
+  },
+  {
+    question: "Tali busur terpanjang pada sebuah lingkaran disebut ...",
+    options: ["Diameter", "Jari-jari", "Apotema", "Busur"],
+    category: "Lingkaran · Kelas 8", grade: 8
+  },
+  {
+    question: "Sudut keliling yang menghadap diameter suatu lingkaran selalu besarnya ...",
+    options: ["90°", "45°", "60°", "180°"],
+    category: "Lingkaran · Kelas 8", grade: 8
+  },
+
+  /* ── KELAS 9 — PERPANGKATAN & BENTUK AKAR (soal 36–42) ── */
+  {
+    question: "Nilai dari 2⁵ × 2⁻³ = ...",
+    options: ["4", "8", "16", "2"],
+    category: "Perpangkatan & Bentuk Akar · Kelas 9", grade: 9
+  },
+  {
+    question: "Bentuk sederhana dari √75 adalah ...",
+    options: ["5√3", "3√5", "15√3", "25√3"],
+    category: "Perpangkatan & Bentuk Akar · Kelas 9", grade: 9
+  },
+  {
+    question: "Nilai dari (3²)³ adalah ...",
+    options: ["729", "243", "81", "512"],
+    category: "Perpangkatan & Bentuk Akar · Kelas 9", grade: 9
+  },
+  {
+    question: "Hasil dari √8 + √18 = ...",
+    options: ["5√2", "3√2", "4√2", "7√2"],
+    category: "Perpangkatan & Bentuk Akar · Kelas 9", grade: 9
+  },
+  {
+    question: "Nilai dari 27^(2/3) adalah ...",
+    options: ["9", "3", "27", "81"],
+    category: "Perpangkatan & Bentuk Akar · Kelas 9", grade: 9
+  },
+  {
+    question: "Bentuk sederhana dari (√3 + √2)(√3 − √2) adalah ...",
+    options: ["1", "5", "√5", "√6"],
+    category: "Perpangkatan & Bentuk Akar · Kelas 9", grade: 9
+  },
+  {
+    question: "Nilai dari 4^(−1/2) adalah ...",
+    options: ["½", "2", "¼", "4"],
+    category: "Perpangkatan & Bentuk Akar · Kelas 9", grade: 9
+  },
+
+  /* ── KELAS 9 — FUNGSI KUADRAT (soal 43–49) ── */
+  {
+    question: "Akar-akar persamaan kuadrat x² − 5x + 6 = 0 adalah ...",
+    options: ["x = 2 atau x = 3", "x = −2 atau x = −3", "x = 1 atau x = 6", "x = 2 atau x = −3"],
+    category: "Fungsi Kuadrat · Kelas 9", grade: 9
+  },
+  {
+    question: "Nilai diskriminan dari persamaan 2x² − 4x + 3 = 0 adalah ...",
+    options: ["−8", "8", "40", "−40"],
+    category: "Fungsi Kuadrat · Kelas 9", grade: 9
+  },
+  {
+    question: "Parabola y = x² − 4x + 3 memotong sumbu x di titik ...",
+    options: ["(1, 0) dan (3, 0)", "(2, 0) dan (1, 0)", "(−1, 0) dan (−3, 0)", "(0, 3)"],
+    category: "Fungsi Kuadrat · Kelas 9", grade: 9
+  },
+  {
+    question: "Koordinat titik puncak (vertex) parabola y = x² − 6x + 5 adalah ...",
+    options: ["(3, −4)", "(3, 4)", "(−3, −4)", "(6, 5)"],
+    category: "Fungsi Kuadrat · Kelas 9", grade: 9
+  },
+  {
+    question: "Jumlah akar-akar persamaan 3x² − 6x − 9 = 0 adalah ...",
+    options: ["2", "3", "−3", "6"],
+    category: "Fungsi Kuadrat · Kelas 9", grade: 9
+  },
+  {
+    question: "Hasil kali akar-akar persamaan 2x² − 5x + 3 = 0 adalah ...",
+    options: ["3/2", "5/2", "2/3", "−3/2"],
+    category: "Fungsi Kuadrat · Kelas 9", grade: 9
+  },
+  {
+    question: "Persamaan kuadrat yang akar-akarnya 2 dan −3 adalah ...",
+    options: ["x² + x − 6 = 0", "x² − x − 6 = 0", "x² + x + 6 = 0", "x² − 5x − 6 = 0"],
+    category: "Fungsi Kuadrat · Kelas 9", grade: 9
+  },
+
+  /* ── KELAS 9 — GEOMETRI (soal 50–60) ── */
+  {
+    question: "Luas permukaan kubus dengan panjang rusuk 5 cm adalah ...",
+    options: ["150 cm²", "125 cm²", "75 cm²", "100 cm²"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Volume tabung dengan jari-jari 7 cm dan tinggi 10 cm adalah ... (π = 22/7)",
+    options: ["1.540 cm³", "770 cm³", "3.080 cm³", "440 cm³"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Volume kerucut dengan jari-jari 6 cm dan tinggi 7 cm adalah ... (π = 22/7)",
+    options: ["264 cm³", "528 cm³", "792 cm³", "132 cm³"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Luas permukaan bola dengan jari-jari 7 cm adalah ... (π = 22/7)",
+    options: ["616 cm²", "308 cm²", "1.232 cm²", "154 cm²"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Volume bola dengan jari-jari 3 cm adalah ...",
+    options: ["36π cm³", "27π cm³", "18π cm³", "108π cm³"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Sebuah limas segiempat beraturan memiliki alas 8 cm × 8 cm dan tinggi sisi tegak 10 cm. Luas permukaannya adalah ...",
+    options: ["224 cm²", "320 cm²", "288 cm²", "192 cm²"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Luas trapesium dengan sisi sejajar 8 cm dan 12 cm serta tinggi 6 cm adalah ...",
+    options: ["60 cm²", "96 cm²", "72 cm²", "48 cm²"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Sebuah prisma segitiga siku-siku memiliki alas segitiga dengan sisi siku-siku 3 cm dan 4 cm, serta panjang prisma 10 cm. Volumenya adalah ...",
+    options: ["60 cm³", "120 cm³", "30 cm³", "150 cm³"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Besar sudut dalam segi delapan beraturan adalah ...",
+    options: ["135°", "120°", "150°", "108°"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Luas jajargenjang dengan alas 15 cm dan tinggi 8 cm adalah ...",
+    options: ["120 cm²", "60 cm²", "240 cm²", "90 cm²"],
+    category: "Geometri · Kelas 9", grade: 9
+  },
+  {
+    question: "Diagonal-diagonal belah ketupat adalah 16 cm dan 12 cm. Luas belah ketupat tersebut adalah ...",
+    options: ["96 cm²", "192 cm²", "48 cm²", "72 cm²"],
+    category: "Geometri · Kelas 9", grade: 9
+  }
+];
+
+/* ================================================================
+   STATE
+================================================================ */
+let studentName   = "";
+let shuffledQ     = [];   // shuffled question objects (with shuffledOptions, correctIdx)
+let currentIndex  = 0;
+let userAnswers   = [];   // userAnswers[i] = chosen option index (or -1)
+let timerInterval = null;
+let secondsLeft   = 90 * 60;
+let examStarted   = false;
+let examFinished  = false;
+
+const LABELS = ["A", "B", "C", "D"];
+
+/* ================================================================
+   UTILITY
+================================================================ */
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+/* ================================================================
+   START EXAM
+================================================================ */
+function startExam() {
+  const input = document.getElementById('nameInput');
+  studentName = input.value.trim();
+  if (!studentName) {
+    input.focus();
+    input.style.borderColor = '#e74c3c';
+    input.placeholder = '⚠️ Nama tidak boleh kosong!';
+    setTimeout(() => {
+      input.style.borderColor = '';
+      input.placeholder = 'Tulis nama kamu di sini...';
+    }, 2000);
+    return;
+  }
+
+  /* Prepare shuffled questions */
+  const indices = shuffle([...Array(questionBank.length).keys()]);
+  shuffledQ = indices.map(i => {
+    const q = questionBank[i];
+    const correctText = q.options[0]; // always index 0 = correct
+    const shuffledOpts = shuffle([...q.options]);
+    const correctIdx = shuffledOpts.indexOf(correctText);
+    return { ...q, shuffledOptions: shuffledOpts, correctIdx };
+  });
+
+  userAnswers = new Array(shuffledQ.length).fill(-1);
+  currentIndex = 0;
+  secondsLeft  = 90 * 60;
+  examFinished = false;
+  examStarted  = true;
+
+  /* UI setup */
+  document.getElementById('topbar-name').textContent = studentName;
+  buildGrid();
+  renderQuestion();
+  startTimer();
+  showScreen('screen-exam');
+}
+
+/* ================================================================
+   GRID
+================================================================ */
+function buildGrid() {
+  const grid = document.getElementById('question-grid');
+  grid.innerHTML = '';
+  shuffledQ.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'grid-btn' + (i === 0 ? ' current' : '');
+    btn.textContent = i + 1;
+    btn.onclick = () => goTo(i);
+    grid.appendChild(btn);
+  });
+}
+
+function updateGrid() {
+  const btns = document.querySelectorAll('.grid-btn');
+  btns.forEach((btn, i) => {
+    btn.className = 'grid-btn';
+    if (i === currentIndex) btn.classList.add('current');
+    else if (userAnswers[i] !== -1) btn.classList.add('answered');
+  });
+}
+
+/* ================================================================
+   RENDER QUESTION
+================================================================ */
+function renderQuestion(direction) {
+  const card = document.getElementById('question-card');
+  card.style.animation = 'none';
+  void card.offsetWidth; // reflow
+  card.style.animation = 'fadeInScale .35s ease';
+
+  const q = shuffledQ[currentIndex];
+  document.getElementById('q-number').textContent = `Soal ${currentIndex + 1} dari ${shuffledQ.length}`;
+  document.getElementById('q-category').textContent = q.category;
+  document.getElementById('q-text').textContent = q.question;
+
+  const optsDiv = document.getElementById('q-options');
+  optsDiv.innerHTML = '';
+  q.shuffledOptions.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn' + (userAnswers[currentIndex] === i ? ' selected' : '');
+    btn.innerHTML = `<span class="option-label">${LABELS[i]}</span><span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i);
+    optsDiv.appendChild(btn);
+  });
+
+  /* Nav buttons */
+  document.getElementById('btn-prev').disabled = currentIndex === 0;
+  const isLast = currentIndex === shuffledQ.length - 1;
+  document.getElementById('btn-next').style.display  = isLast ? 'none' : '';
+  document.getElementById('btn-submit').style.display = isLast ? '' : 'none';
+
+  /* Progress */
+  const answered = userAnswers.filter(a => a !== -1).length;
+  document.getElementById('progress-text').textContent = `${answered} / ${shuffledQ.length}`;
+  document.getElementById('progress-bar').style.width = `${(answered / shuffledQ.length) * 100}%`;
+  document.getElementById('answered-count').textContent = `${answered} soal dijawab`;
+
+  updateGrid();
+}
+
+/* ================================================================
+   SELECT ANSWER
+================================================================ */
+function selectAnswer(idx) {
+  if (examFinished) return;
+  userAnswers[currentIndex] = idx;
+  renderQuestion();
+}
+
+/* ================================================================
+   NAVIGATE
+================================================================ */
+function navigate(dir) {
+  const next = currentIndex + dir;
+  if (next >= 0 && next < shuffledQ.length) {
+    currentIndex = next;
+    renderQuestion(dir);
+  }
+}
+
+function goTo(i) {
+  currentIndex = i;
+  renderQuestion();
+}
+
+/* ================================================================
+   TIMER
+================================================================ */
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    updateTimerDisplay();
+    if (secondsLeft <= 0) {
+      clearInterval(timerInterval);
+      autoSubmit();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(secondsLeft / 60);
+  const s = secondsLeft % 60;
+  const txt = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const el = document.getElementById('timer-display');
+  el.textContent = txt;
+  el.className = 'timer-text';
+  if (secondsLeft <= 300) el.classList.add('danger');
+  else if (secondsLeft <= 600) el.classList.add('warning');
+}
+
+function autoSubmit() {
+  examFinished = true;
+  showResult();
+}
+
+/* ================================================================
+   SUBMIT MODAL
+================================================================ */
+function openSubmitModal() {
+  const answered = userAnswers.filter(a => a !== -1).length;
+  const unanswered = shuffledQ.length - answered;
+  const desc = unanswered > 0
+    ? `Masih ada ${unanswered} soal yang belum dijawab. Kamu yakin ingin mengirim?`
+    : 'Semua soal sudah dijawab. Kamu siap mengirim?';
+  document.getElementById('modal-desc').textContent = desc;
+  document.getElementById('submit-modal').classList.add('show');
+}
+
+function closeSubmitModal() {
+  document.getElementById('submit-modal').classList.remove('show');
+}
+
+function submitExam() {
+  closeSubmitModal();
+  clearInterval(timerInterval);
+  examFinished = true;
+  showResult();
+}
+
+/* ================================================================
+   SHOW RESULT
+================================================================ */
+function showResult() {
+  let correct = 0;
+  shuffledQ.forEach((q, i) => {
+    if (userAnswers[i] === q.correctIdx) correct++;
+  });
+
+  const total   = shuffledQ.length;
+  const wrong   = total - correct;
+  const pct     = Math.round((correct / total) * 100);
+  const pctDeg  = `${(correct / total) * 100}%`;
+
+  /* Score circle via conic-gradient CSS var */
+  document.getElementById('score-circle').style.setProperty('--pct', `${(correct/total)*360}deg`);
+  document.getElementById('score-circle').style.background =
+    `conic-gradient(#4FACFE 0deg, #A18CD1 ${(correct/total)*360}deg, #eef2ff ${(correct/total)*360}deg)`;
+
+  document.getElementById('score-big').textContent  = correct;
+  document.getElementById('score-denom').textContent = `dari ${total}`;
+  document.getElementById('stat-correct').textContent = correct;
+  document.getElementById('stat-wrong').textContent   = wrong;
+  document.getElementById('stat-pct').textContent     = pct + '%';
+  document.getElementById('result-name').textContent  = studentName;
+
+  /* Feedback */
+  const fb = document.getElementById('feedback-box');
+  fb.className = 'feedback-box';
+  if (pct >= 85) {
+    fb.textContent = '🎉 Sangat Baik! Pertahankan prestasimu!';
+    fb.classList.add('excellent');
+    document.getElementById('result-emoji').textContent = '🏆';
+    document.getElementById('result-header-text').textContent = 'Hasil Luar Biasa!';
+  } else if (pct >= 70) {
+    fb.textContent = '👍 Baik! Terus tingkatkan kemampuanmu!';
+    fb.classList.add('good');
+    document.getElementById('result-emoji').textContent = '🌟';
+    document.getElementById('result-header-text').textContent = 'Hasil Baik!';
+  } else if (pct >= 50) {
+    fb.textContent = '💪 Cukup! Kamu bisa lebih baik lagi!';
+    fb.classList.add('ok');
+    document.getElementById('result-emoji').textContent = '📈';
+    document.getElementById('result-header-text').textContent = 'Lumayan, Ayo Tingkatkan!';
+  } else {
+    fb.textContent = '📚 Perlu belajar lagi! Jangan menyerah, semangat!';
+    fb.classList.add('poor');
+    document.getElementById('result-emoji').textContent = '📖';
+    document.getElementById('result-header-text').textContent = 'Tetap Semangat!';
+  }
+
+  /* Save to localStorage */
+  const record = {
+    name: studentName,
+    score: correct,
+    total,
+    pct,
+    date: new Date().toLocaleString('id-ID'),
+    answers: userAnswers
+  };
+  localStorage.setItem('mathExamResult', JSON.stringify(record));
+
+  showScreen('screen-result');
+}
+
+/* ================================================================
+   REVIEW
+================================================================ */
+function showReview() {
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+
+  shuffledQ.forEach((q, i) => {
+    const chosen = userAnswers[i];
+    const isCorrect = chosen === q.correctIdx;
+
+    const item = document.createElement('div');
+    item.className = `review-item ${isCorrect ? 'correct' : 'wrong'}`;
+
+    let optsHTML = '';
+    q.shuffledOptions.forEach((opt, j) => {
+      let cls = 'normal';
+      let icon = '';
+      if (j === q.correctIdx) { cls = 'correct-ans'; icon = '✅ '; }
+      else if (j === chosen && !isCorrect) { cls = 'wrong-ans'; icon = '❌ '; }
+      optsHTML += `<div class="review-opt ${cls}">${icon}${LABELS[j]}. ${opt}</div>`;
+    });
+
+    const notAnswered = chosen === -1;
+
+    item.innerHTML = `
+      <div class="review-header">
+        <span class="review-num">Soal ${i + 1}</span>
+        <span class="review-cat">${q.category}</span>
+        <span class="review-status ${isCorrect ? 'correct' : 'wrong'}">
+          ${isCorrect ? '✅ Benar' : notAnswered ? '— Tidak dijawab' : '❌ Salah'}
+        </span>
+      </div>
+      <div class="review-q">${q.question}</div>
+      <div class="review-answers">${optsHTML}</div>
+    `;
+    list.appendChild(item);
+  });
+
+  showScreen('screen-review');
+}
+
+/* ================================================================
+   RETRY
+================================================================ */
+function retryExam() {
+  examStarted  = false;
+  examFinished = false;
+  clearInterval(timerInterval);
+  showScreen('screen-login');
+  document.getElementById('nameInput').value = studentName;
+}
+
+/* ================================================================
+   ANTI-REFRESH WARNING
+================================================================ */
+window.addEventListener('beforeunload', (e) => {
+  if (examStarted && !examFinished) {
+    e.preventDefault();
+    e.returnValue = 'Ujian sedang berlangsung! Yakin ingin meninggalkan halaman?';
+    return e.returnValue;
+  }
+});
+
+/* Enter key on login */
+document.getElementById('nameInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') startExam();
+});
+</script>
+</body>
+</html>
